@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="FftGuitarTuner">
+</Property><Property Name="Solution File" Value="D:\tuner\FftGuitarTuner.sln">
+</Property><Property Name="User Options File" Value="D:\tuner\FftGuitarTuner.suo">
+</Property><Property Name="Date" Value="Tuesday, March 01, 2016">
+</Property><Property Name="Time" Value="11:27 AM">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="FftGuitarTuner.sln" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner.sln">
+</Event><Event ErrorLevel="0" Project="" Source="FftGuitarTuner.suo" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner.suo">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\FftGuitarTuner.csproj" Description="Project file successfully backed up as D:\tuner\Backup\FftGuitarTuner\FftGuitarTuner.csproj">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\FrequenciesScale.cs" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\FrequenciesScale.cs">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\FrequenciesScale.Designer.cs" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\FrequenciesScale.Designer.cs">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\FrequencyInfoSource.cs" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\FrequencyInfoSource.cs">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\FrequencyUtils.cs" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\FrequencyUtils.cs">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\MainForm.cs" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\MainForm.cs">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\MainForm.Designer.cs" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\MainForm.Designer.cs">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\Program.cs" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\Program.cs">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\Properties\Resources.Designer.cs" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\Properties\Settings.Designer.cs" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\SelectDeviceForm.cs" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\SelectDeviceForm.cs">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\SelectDeviceForm.Designer.cs" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\SelectDeviceForm.Designer.cs">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\SoundFrequencyInfoSource.cs" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\SoundFrequencyInfoSource.cs">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\Properties\Settings.settings" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\FrequenciesScale.resx" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\FrequenciesScale.resx">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\MainForm.resx" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\MainForm.resx">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\Properties\Resources.resx" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\SelectDeviceForm.resx" Description="File successfully backed up as D:\tuner\Backup\FftGuitarTuner\SelectDeviceForm.resx">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\FftGuitarTuner.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="FftGuitarTuner" Source="FftGuitarTuner\FftGuitarTuner.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="SoundCapture" Source="SoundCapture\SoundCapture.csproj" Description="Project file successfully backed up as D:\tuner\Backup\SoundCapture\SoundCapture.csproj">
+</Event><Event ErrorLevel="0" Project="SoundCapture" Source="SoundCapture\SoundCaptureBase.cs" Description="File successfully backed up as D:\tuner\Backup\SoundCapture\SoundCaptureBase.cs">
+</Event><Event ErrorLevel="0" Project="SoundCapture" Source="SoundCapture\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\tuner\Backup\SoundCapture\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="SoundCapture" Source="SoundCapture\SoundCaptureDevice.cs" Description="File successfully backed up as D:\tuner\Backup\SoundCapture\SoundCaptureDevice.cs">
+</Event><Event ErrorLevel="0" Project="SoundCapture" Source="SoundCapture\SoundCaptureException.cs" Description="File successfully backed up as D:\tuner\Backup\SoundCapture\SoundCaptureException.cs">
+</Event><Event ErrorLevel="1" Project="SoundCapture" Source="SoundCapture\SoundCapture.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="SoundCapture" Source="SoundCapture\SoundCapture.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="SoundCapture" Source="SoundCapture\SoundCapture.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="SoundAnalysis" Source="SoundAnalysis\SoundAnalysis.csproj" Description="Project file successfully backed up as D:\tuner\Backup\SoundAnalysis\SoundAnalysis.csproj">
+</Event><Event ErrorLevel="0" Project="SoundAnalysis" Source="SoundAnalysis\ComplexNumber.cs" Description="File successfully backed up as D:\tuner\Backup\SoundAnalysis\ComplexNumber.cs">
+</Event><Event ErrorLevel="0" Project="SoundAnalysis" Source="SoundAnalysis\FftAlgorithm.cs" Description="File successfully backed up as D:\tuner\Backup\SoundAnalysis\FftAlgorithm.cs">
+</Event><Event ErrorLevel="0" Project="SoundAnalysis" Source="SoundAnalysis\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\tuner\Backup\SoundAnalysis\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="SoundAnalysis" Source="SoundAnalysis\SoundAnalysis.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="SoundAnalysis" Source="SoundAnalysis\SoundAnalysis.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="FftGuitarTuner.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="FftGuitarTuner.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="FftGuitarTuner" Source="FftGuitarTuner\FftGuitarTuner.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="SoundCapture" Source="SoundCapture\SoundCapture.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="SoundAnalysis" Source="SoundAnalysis\SoundAnalysis.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
