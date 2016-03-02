@@ -77,18 +77,18 @@ namespace FftGuitarTuner
                 closeFrequencyTextBox.Text = closestFrequency.ToString("f3");
                 noteNameTextBox.Enabled = true;
                 noteNameTextBox.Text = noteName;
-                string path = @"C:\WriteLines1.txt";
-                FileInfo fi1 = new FileInfo(path);
-                if (!fi1.Exists)
-                {
-                    //Create a file to write to.
-                    fi1.CreateText();
-                }
-                using (System.IO.StreamWriter file =
-                    new System.IO.StreamWriter(path, true))
-                {
-                    file.WriteLine(noteName + "Time:"+ DateTime.UtcNow + "\n");
-                }
+                //string path = @"C:\WriteLines1.txt";
+                //FileInfo fi1 = new FileInfo(path);
+                //if (!fi1.Exists)
+                //{
+                //    //Create a file to write to.
+                //    fi1.CreateText();
+                //}
+                //using (System.IO.StreamWriter file =
+                //    new System.IO.StreamWriter(path, true))
+                //{
+                //    file.WriteLine(noteName + "Time:"+ DateTime.UtcNow + "\n");
+                //}
             }
             else
             {
@@ -101,19 +101,10 @@ namespace FftGuitarTuner
 
         }
 
-        
-
-        static string[] NoteNames = {"A", "A#", "B/H", "C", "C#", "D", "D#", "E", "F", "F#",  "G",  "G#" };
-        static double ToneStep = Math.Pow(2, 1.0 / 12);
-
         private void FindClosestNote(double frequency, out double closestFrequency, out string noteName)
         {
-            const double AFrequency = 440.0;
-            const int ToneIndexOffsetToPositives = 120;
-
-            int toneIndex = (int)Math.Round( Math.Log(frequency / AFrequency, ToneStep) );
-            noteName = NoteNames[(ToneIndexOffsetToPositives + toneIndex) % NoteNames.Length];
-            closestFrequency = Math.Pow(ToneStep, toneIndex) * AFrequency;
+            noteName = Notes.GetClosestNote(frequency);
+            closestFrequency = Notes.GetFrequency(noteName);
         }
 
         private void listenButton_Click(object sender, EventArgs e)

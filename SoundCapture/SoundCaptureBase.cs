@@ -109,10 +109,10 @@ namespace SoundCapture
             notify.SetNotificationPositions(positions);
 
             terminated.Reset();
-            //thread = new Thread(new ThreadStart(ThreadLoop));
-            //thread.Name = "Sound capture";
-            //thread.Start();
-            ThreadLoop();
+            thread = new Thread(new ThreadStart(ThreadLoop));
+            thread.Name = "Sound capture";
+            thread.Start();
+            //ThreadLoop();
         }
 
         private void ThreadLoop()
@@ -121,7 +121,7 @@ namespace SoundCapture
             try
             {
                 int nextCapturePosition = 0;
-                WaitHandle[] handles = new WaitHandle[] { terminated, positionEvent };
+                WaitHandle[] handles = { terminated, positionEvent };
                 while (WaitHandle.WaitAny(handles) > 0)
                 {
                     int capturePosition, readPosition;
