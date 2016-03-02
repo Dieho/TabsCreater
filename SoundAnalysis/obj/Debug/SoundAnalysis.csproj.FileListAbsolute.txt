@@ -1,4 +1,0 @@
-D:\tuner\SoundAnalysis\bin\Debug\SoundAnalysis.dll
-D:\tuner\SoundAnalysis\bin\Debug\SoundAnalysis.pdb
-D:\tuner\SoundAnalysis\obj\Debug\SoundAnalysis.dll
-D:\tuner\SoundAnalysis\obj\Debug\SoundAnalysis.pdb

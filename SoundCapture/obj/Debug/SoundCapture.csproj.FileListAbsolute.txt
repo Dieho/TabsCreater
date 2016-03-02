@@ -1,4 +1,0 @@
-D:\tuner\SoundCapture\bin\Debug\SoundCapture.dll
-D:\tuner\SoundCapture\bin\Debug\SoundCapture.pdb
-D:\tuner\SoundCapture\obj\Debug\SoundCapture.dll
-D:\tuner\SoundCapture\obj\Debug\SoundCapture.pdb
