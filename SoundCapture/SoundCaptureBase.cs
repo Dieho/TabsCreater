@@ -17,51 +17,51 @@ namespace SoundCapture
         const int BitsPerSample = 16; 
         const int ChannelCount = 1; 
 
-        int sampleRate = 44100;
-        bool isCapturing = false;
-        bool disposed = false;
+        int _sampleRate = 44100;
+        bool _isCapturing;
+        bool _disposed;
 
         public bool IsCapturing
         {
-            get { return isCapturing; }
+            get { return _isCapturing; }
         }
 
         public int SampleRate
         {
-            get { return sampleRate; }
+            get { return _sampleRate; }
             set 
             {
-                if (sampleRate <= 0) throw new ArgumentOutOfRangeException();
+                if (_sampleRate <= 0) throw new ArgumentOutOfRangeException();
 
                 EnsureIdle();
 
-                sampleRate = value; 
+                _sampleRate = value; 
             }
         }
         
-        Capture capture;
-        CaptureBuffer buffer;
-        Notify notify;
-        int bufferLength;
-        AutoResetEvent positionEvent;
-        SafeWaitHandle positionEventHandle;
-        ManualResetEvent terminated;
-        Thread thread;
-        SoundCaptureDevice device;
+        Capture _capture;
+        CaptureBuffer _buffer;
+        Notify _notify;
+        int _bufferLength;
+        readonly AutoResetEvent _positionEvent;
+        readonly SafeWaitHandle _positionEventHandle;
+        readonly ManualResetEvent _terminated;
+        Thread _thread;
+        readonly SoundCaptureDevice _device;
 
-        public SoundCaptureBase()
+        protected SoundCaptureBase()
             : this(SoundCaptureDevice.GetDefaultDevice())
         {
 
         }
 
-        public SoundCaptureBase(SoundCaptureDevice device)
+        protected SoundCaptureBase(SoundCaptureDevice device)
         {
-            this.device = device;
+            _device = device;
 
-            positionEvent = new AutoResetEvent(false);
-            positionEventHandle = positionEvent.SafeWaitHandle;
-            terminated = new ManualResetEvent(true);
+            _positionEvent = new AutoResetEvent(false);
+            _positionEventHandle = _positionEvent.SafeWaitHandle;
+            _terminated = new ManualResetEvent(true);
         }
 
         private void EnsureIdle()
@@ -77,70 +77,75 @@ namespace SoundCapture
         {
             EnsureIdle();
 
-            isCapturing = true;
+            _isCapturing = true;
 
-            WaveFormat format = new WaveFormat();
-            format.Channels = ChannelCount;
-            format.BitsPerSample = BitsPerSample;
-            format.SamplesPerSecond = SampleRate;
-            format.FormatTag = WaveFormatTag.Pcm;
+            WaveFormat format = new WaveFormat
+            {
+                Channels = ChannelCount,
+                BitsPerSample = BitsPerSample,
+                SamplesPerSecond = SampleRate,
+                FormatTag = WaveFormatTag.Pcm
+            };
             format.BlockAlign = (short)((format.Channels * format.BitsPerSample + 7) / 8);
             format.AverageBytesPerSecond = format.BlockAlign * format.SamplesPerSecond;
 
-            bufferLength = format.AverageBytesPerSecond * BufferSeconds;
-            CaptureBufferDescription desciption = new CaptureBufferDescription();
-            desciption.Format = format;
-            desciption.BufferBytes = bufferLength;
+            _bufferLength = format.AverageBytesPerSecond * BufferSeconds;
+            CaptureBufferDescription desciption = new CaptureBufferDescription
+            {
+                Format = format,
+                BufferBytes = _bufferLength
+            };
 
-            capture = new Capture(device.Id);
-            buffer = new CaptureBuffer(desciption, capture);
+            _capture = new Capture(_device.Id);
+            _buffer = new CaptureBuffer(desciption, _capture);
 
             int waitHandleCount = BufferSeconds * NotifyPointsInSecond;
             BufferPositionNotify[] positions = new BufferPositionNotify[waitHandleCount];
             for (int i = 0; i < waitHandleCount; i++)
             {
-                BufferPositionNotify position = new BufferPositionNotify();
-                position.Offset = (i + 1) * bufferLength / positions.Length - 1;
-                position.EventNotifyHandle = positionEventHandle.DangerousGetHandle();
+                BufferPositionNotify position = new BufferPositionNotify
+                {
+                    Offset = (i + 1)*_bufferLength/positions.Length - 1,
+                    EventNotifyHandle = _positionEventHandle.DangerousGetHandle()
+                };
                 positions[i] = position;
             }
 
-            notify = new Notify(buffer);
-            notify.SetNotificationPositions(positions);
+            _notify = new Notify(_buffer);
+            _notify.SetNotificationPositions(positions);
 
-            terminated.Reset();
-            thread = new Thread(new ThreadStart(ThreadLoop));
-            thread.Name = "Sound capture";
-            thread.Start();
+            _terminated.Reset();
+            _thread = new Thread(ThreadLoop) {Name = "Sound capture"};
+            _thread.Start();
             //ThreadLoop();
         }
 
         private void ThreadLoop()
         {
-            buffer.Start(true);
+            _buffer.Start(true);
             try
             {
                 int nextCapturePosition = 0;
-                WaitHandle[] handles = { terminated, positionEvent };
+                WaitHandle[] handles = { _terminated, _positionEvent };
                 while (WaitHandle.WaitAny(handles) > 0)
                 {
                     int capturePosition, readPosition;
-                    buffer.GetCurrentPosition(out capturePosition, out readPosition);
+                    _buffer.GetCurrentPosition(out capturePosition, out readPosition);
 
                     int lockSize = readPosition - nextCapturePosition;
-                    if (lockSize < 0) lockSize += bufferLength;
+                    if (lockSize < 0) lockSize += _bufferLength;
                     if((lockSize & 1) != 0) lockSize--;
 
                     int itemsCount = lockSize >> 1;
 
-                    short[] data = (short[])buffer.Read(nextCapturePosition, typeof(short), LockFlag.None, itemsCount);
+                    short[] data = (short[])_buffer.Read(nextCapturePosition, typeof(short), LockFlag.None, itemsCount);
                     ProcessData(data);
-                    nextCapturePosition = (nextCapturePosition + lockSize) % bufferLength;
+                    nextCapturePosition = (nextCapturePosition + lockSize) % _bufferLength;
                 }
             }
             finally
             {
-                buffer.Stop();
+                _buffer.Stop();
             }
         }
 
@@ -155,16 +160,16 @@ namespace SoundCapture
         /// </summary>
         public void Stop()
         {
-            if (isCapturing)
+            if (_isCapturing)
             {
-                isCapturing = false;
+                _isCapturing = false;
 
-                terminated.Set();
-                thread.Join();
+                _terminated.Set();
+                _thread.Join();
 
-                notify.Dispose();
-                buffer.Dispose();
-                capture.Dispose();
+                _notify.Dispose();
+                _buffer.Dispose();
+                _capture.Dispose();
             }
         }
 
@@ -180,14 +185,14 @@ namespace SoundCapture
 
         private void Dispose(bool disposing)
         {
-            if (disposed) return;
+            if (_disposed) return;
 
-            disposed = true;
+            _disposed = true;
             GC.SuppressFinalize(this);
             if (IsCapturing) Stop();
-            positionEventHandle.Dispose();
-            positionEvent.Close();
-            terminated.Close();            
+            _positionEventHandle.Dispose();
+            _positionEvent.Close();
+            _terminated.Close();            
         }
     }
 }

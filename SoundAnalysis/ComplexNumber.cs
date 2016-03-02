@@ -12,14 +12,14 @@ namespace SoundAnalysis
 
         public ComplexNumber(double re)
         {
-            this.Re = re;
-            this.Im = 0;
+            Re = re;
+            Im = 0;
         }
 
         public ComplexNumber(double re, double im)
         {
-            this.Re = re;
-            this.Im = im;
+            Re = re;
+            Im = im;
         }
 
         public static ComplexNumber operator *(ComplexNumber n1, ComplexNumber n2)

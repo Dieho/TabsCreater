@@ -1,11 +1,14 @@
-﻿namespace FftGuitarTuner
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace FftGuitarTuner
 {
     partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -174,17 +177,17 @@
 
         #endregion
 
-        private System.Windows.Forms.Button closeButton;
-        private System.Windows.Forms.Button listenButton;
-        private System.Windows.Forms.Button stopButton;
-        private System.Windows.Forms.TextBox frequencyTextBox;
-        private System.Windows.Forms.Label hzLabel;
+        private Button closeButton;
+        private Button listenButton;
+        private Button stopButton;
+        private TextBox frequencyTextBox;
+        private Label hzLabel;
         private FrequenciesScale frequenciesScale1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox closeFrequencyTextBox;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox noteNameTextBox;
+        private Label label1;
+        private TextBox closeFrequencyTextBox;
+        private Label label2;
+        private Label label3;
+        private TextBox noteNameTextBox;
     }
 }
 

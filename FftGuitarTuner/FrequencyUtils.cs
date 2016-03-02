@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
 using SoundAnalysis;
 
 namespace FftGuitarTuner
@@ -31,10 +28,10 @@ namespace FftGuitarTuner
                 (int)(maxFreq * spectr.Length / sampleRate) + 1);
 
             // find peaks in the FFT frequency bins 
-            const int PeaksCount = 5;
+            const int peaksCount = 5;
             int[] peakIndices;
             peakIndices = FindPeaks(spectr, usefullMinSpectr, usefullMaxSpectr - usefullMinSpectr,
-                PeaksCount);
+                peaksCount);
 
             if (Array.IndexOf(peakIndices, usefullMinSpectr) >= 0)
             {
@@ -81,10 +78,10 @@ namespace FftGuitarTuner
 
             // distance between min and max range value can be big
             // limiting it to the fixed value
-            const int MaxAmountOfSteps = 30;
+            const int maxAmountOfSteps = 30;
             int steps = intervalMax - intervalMin;
-            if (steps > MaxAmountOfSteps)
-                steps = MaxAmountOfSteps;
+            if (steps > maxAmountOfSteps)
+                steps = maxAmountOfSteps;
             else if (steps <= 0)
                 steps = 1;
 

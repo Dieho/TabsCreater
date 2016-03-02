@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using SoundCapture;
 
@@ -13,11 +6,11 @@ namespace FftGuitarTuner
 {
     public partial class MainForm : Form
     {
-        bool isListenning = false;
+        bool _isListenning;
 
         public bool IsListenning
         {
-            get { return isListenning; }
+            get { return _isListenning; }
         }
 
         public MainForm()
@@ -30,22 +23,22 @@ namespace FftGuitarTuner
             Close();
         }
 
-        FrequencyInfoSource frequencyInfoSource;
+        FrequencyInfoSource _frequencyInfoSource;
 
         private void StopListenning()
         {
-            isListenning = false;
-            frequencyInfoSource.Stop();
-            frequencyInfoSource.FrequencyDetected -= frequencyInfoSource_FrequencyDetected;
-            frequencyInfoSource = null;
+            _isListenning = false;
+            _frequencyInfoSource.Stop();
+            _frequencyInfoSource.FrequencyDetected -= frequencyInfoSource_FrequencyDetected;
+            _frequencyInfoSource = null;
         }
 
         private void StartListenning(SoundCaptureDevice device)
         {
-            isListenning = true;
-            frequencyInfoSource = new SoundFrequencyInfoSource(device);
-            frequencyInfoSource.FrequencyDetected += frequencyInfoSource_FrequencyDetected;
-            frequencyInfoSource.Listen();
+            _isListenning = true;
+            _frequencyInfoSource = new SoundFrequencyInfoSource(device);
+            _frequencyInfoSource.FrequencyDetected += frequencyInfoSource_FrequencyDetected;
+            _frequencyInfoSource.Listen();
         }
 
         void frequencyInfoSource_FrequencyDetected(object sender, FrequencyDetectedEventArgs e)
@@ -127,8 +120,8 @@ namespace FftGuitarTuner
 
         private void UpdateListenStopButtons()
         {
-            listenButton.Enabled = !isListenning;
-            stopButton.Enabled = isListenning;
+            listenButton.Enabled = !_isListenning;
+            stopButton.Enabled = _isListenning;
         }
 
         private void stopButton_Click(object sender, EventArgs e)

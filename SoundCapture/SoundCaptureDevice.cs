@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.DirectX.DirectSound;
 
 namespace SoundCapture
@@ -10,13 +9,13 @@ namespace SoundCapture
     /// </summary>
     public class SoundCaptureDevice
     {
-        Guid id;
+        readonly Guid _id;
 
-        string name;
+        readonly string _name;
 
         public bool IsDefault
         {
-            get { return id == Guid.Empty; }
+            get { return _id == Guid.Empty; }
         }
 
         /// <summary>
@@ -24,18 +23,18 @@ namespace SoundCapture
         /// </summary>
         public string Name
         {
-            get { return name; }
+            get { return _name; }
         }
 
         internal Guid Id
         {
-            get { return id; }
+            get { return _id; }
         }
 
         internal SoundCaptureDevice(Guid id, string name)
         {
-            this.id = id;
-            this.name = name;
+            _id = id;
+            _name = name;
         }
 
         public static SoundCaptureDevice[] GetDevices()

@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace FftGuitarTuner
 {
@@ -14,8 +10,8 @@ namespace FftGuitarTuner
         const double MinFrequency = 70;
         const double MaxFrequency = 1200;
         const double AFrequency = 440;
-        static double ToneStep = Math.Pow(2, 1.0 / 12);
-        static ScaleLabel[] Labels = 
+        static readonly double _toneStep = Math.Pow(2, 1.0 / 12);
+        static readonly ScaleLabel[] _labels = 
         {
              new ScaleLabel() { Title = "E", Frequency =  82.4069, Color=Color.LightGreen},
              new ScaleLabel() { Title = "A", Frequency = 110.0000, Color=Color.LightGreen},
@@ -26,32 +22,32 @@ namespace FftGuitarTuner
              new ScaleLabel() { Title = "",  Frequency = 440.0000, Color=Color.Silver}
         };        
 
-        double currentFrequency;
+        double _currentFrequency;
 
         [DefaultValue(0.0)]
         public double CurrentFrequency
         {
-            get { return currentFrequency; }
+            get { return _currentFrequency; }
             set
             {
-                if (currentFrequency != value)
+                if (_currentFrequency != value)
                 { 
-                    currentFrequency = value; Invalidate(); 
+                    _currentFrequency = value; Invalidate(); 
                 }
             }
         }
 
-        bool signalDetected = false;
+        bool _signalDetected;
 
         [DefaultValue(false)]
         public bool SignalDetected
         {
-            get { return signalDetected; }
+            get { return _signalDetected; }
             set
             {
-                if (signalDetected != value)
+                if (_signalDetected != value)
                 {
-                    signalDetected = value; Invalidate();
+                    _signalDetected = value; Invalidate();
                 }
             }
         }
@@ -78,11 +74,11 @@ namespace FftGuitarTuner
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
 
-        static Pen MarkerPen = new Pen(Color.Black);
-        static Brush ActiveSliderBrush1 = new SolidBrush(Color.GreenYellow);
-        static Brush ActiveSliderBrush2 = new SolidBrush(Color.Green);
-        static Brush InactiveSliderBrush1 = new SolidBrush(Color.FromArgb(70, Color.Gray));
-        static Brush InactiveSliderBrush2 = new SolidBrush(Color.FromArgb(50, Color.Black));
+        static readonly Pen _markerPen = new Pen(Color.Black);
+        static readonly Brush _activeSliderBrush1 = new SolidBrush(Color.GreenYellow);
+        static readonly Brush _activeSliderBrush2 = new SolidBrush(Color.Green);
+        static readonly Brush _inactiveSliderBrush1 = new SolidBrush(Color.FromArgb(70, Color.Gray));
+        static readonly Brush _inactiveSliderBrush2 = new SolidBrush(Color.FromArgb(50, Color.Black));
         const int DisplayPadding = 5;
         const int MarkWidth = 6;
         const int LabelMarkSize = 9;
@@ -97,17 +93,17 @@ namespace FftGuitarTuner
             int center = Width / 2;
 
             int totalSteps = maxStep - minStep;
-            float stepSize = (float)(this.Height - 2 * DisplayPadding) / totalSteps;
+            float stepSize = (float)(Height - 2 * DisplayPadding) / totalSteps;
 
             for (int i = 0; i <= totalSteps; i++)
             {
                 float y = stepSize * i + DisplayPadding;
 
-                e.Graphics.DrawLine(MarkerPen, center - MarkWidth / 2, y, center + MarkWidth / 2, y);
+                e.Graphics.DrawLine(_markerPen, center - MarkWidth / 2, y, center + MarkWidth / 2, y);
             }
 
             float maxTextWidth = e.Graphics.MeasureString("W", Font).Width;
-            foreach (ScaleLabel label in Labels)
+            foreach (ScaleLabel label in _labels)
             {
                 Brush labelBrush = new SolidBrush(label.Color);
                 double labelStep = GetToneStep(label.Frequency);
@@ -116,7 +112,7 @@ namespace FftGuitarTuner
                 RectangleF labelMarkPosition = new RectangleF(DisplayPadding, labelPosition - LabelMarkSize / 2,
                     LabelMarkSize, LabelMarkSize);
                 e.Graphics.FillEllipse(labelBrush, labelMarkPosition);
-                e.Graphics.DrawEllipse(MarkerPen, labelMarkPosition);
+                e.Graphics.DrawEllipse(_markerPen, labelMarkPosition);
                 e.Graphics.FillEllipse(Brushes.White, DisplayPadding + LabelMarkSize / 5, labelPosition - LabelMarkSize / 3,
                     LabelMarkSize / 3, LabelMarkSize / 3);
 
@@ -132,13 +128,13 @@ namespace FftGuitarTuner
                 Brush sliderBrush1, sliderBrush2;
                 if (!SignalDetected)
                 {
-                    sliderBrush1 = InactiveSliderBrush1;
-                    sliderBrush2 = InactiveSliderBrush2;
+                    sliderBrush1 = _inactiveSliderBrush1;
+                    sliderBrush2 = _inactiveSliderBrush2;
                 }
                 else
                 {
-                    sliderBrush1 = ActiveSliderBrush1;
-                    sliderBrush2 = ActiveSliderBrush2;
+                    sliderBrush1 = _activeSliderBrush1;
+                    sliderBrush2 = _activeSliderBrush2;
                 }
 
                 double sliderStep = GetToneStep(CurrentFrequency);
@@ -164,7 +160,7 @@ namespace FftGuitarTuner
 
         private double GetToneStep(double frequency)
         {
-            return Math.Log(frequency / AFrequency, ToneStep);
+            return Math.Log(frequency / AFrequency, _toneStep);
         }
 
         class ScaleLabel

@@ -1,11 +1,13 @@
-﻿namespace FftGuitarTuner
+﻿using System.ComponentModel;
+
+namespace FftGuitarTuner
 {
     partial class FrequenciesScale
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary> 
         /// Clean up any resources being used.

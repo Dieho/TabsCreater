@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Microsoft.DirectX.DirectSound;
 using SoundCapture;
@@ -13,11 +7,11 @@ namespace FftGuitarTuner
 {
     public partial class SelectDeviceForm : Form
     {
-        SoundCaptureDevice[] devices;
+        SoundCaptureDevice[] _devices;
 
         public SoundCaptureDevice SelectedDevice
         {
-            get { return devices[deviceNamesListBox.SelectedIndex]; }
+            get { return _devices[deviceNamesListBox.SelectedIndex]; }
         }
 
         public SelectDeviceForm()
@@ -30,7 +24,7 @@ namespace FftGuitarTuner
             LoadDevices();
         }
 
-        private DevicesCollection myDevices = null;
+        private DevicesCollection _myDevices = null;
 
         private void LoadDevices()
         {
@@ -38,11 +32,11 @@ namespace FftGuitarTuner
 
             int defaultDeviceIndex = 0;
             
-            devices = SoundCaptureDevice.GetDevices();
-            for (int i = 0; i < devices.Length; i++)
+            _devices = SoundCaptureDevice.GetDevices();
+            for (int i = 0; i < _devices.Length; i++)
             {
-                deviceNamesListBox.Items.Add(devices[i].Name);
-                if (devices[i].IsDefault)
+                deviceNamesListBox.Items.Add(_devices[i].Name);
+                if (_devices[i].IsDefault)
                     defaultDeviceIndex = i;
             }
 
@@ -53,8 +47,8 @@ namespace FftGuitarTuner
         {
             if (deviceNamesListBox.SelectedIndex < 0) return;
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }

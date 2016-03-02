@@ -1,36 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SoundCapture;
-using SoundAnalysis;
+﻿using SoundCapture;
 
 namespace FftGuitarTuner
 {
     class SoundFrequencyInfoSource : FrequencyInfoSource
     {
-        SoundCaptureDevice device;
-        Adapter adapter;
+        readonly SoundCaptureDevice _device;
+        Adapter _adapter;
 
         internal SoundFrequencyInfoSource(SoundCaptureDevice device)
         {
-            this.device = device;
+            _device = device;
         }
 
         public override void Listen()
         {
-            adapter = new Adapter(this, device);
-            adapter.Start();
+            _adapter = new Adapter(this, _device);
+            _adapter.Start();
         }
 
         public override void Stop()
         {
-            adapter.Stop();
+            _adapter.Stop();
         }
 
         class Adapter : SoundCaptureBase
         {
-            SoundFrequencyInfoSource owner;
+            readonly SoundFrequencyInfoSource _owner;
 
             const double MinFreq = 60;
             const double MaxFreq = 1300;
@@ -38,7 +33,7 @@ namespace FftGuitarTuner
             internal Adapter(SoundFrequencyInfoSource owner, SoundCaptureDevice device)
                 : base(device)
             {
-                this.owner = owner;
+                _owner = owner;
             }
 
             protected override void ProcessData(short[] data)
@@ -49,7 +44,7 @@ namespace FftGuitarTuner
                     x[i] = data[i] / 32768.0;
                 }
                 double freq = FrequencyUtils.FindFundamentalFrequency(x, SampleRate, MinFreq, MaxFreq);
-                owner.OnFrequencyDetected(new FrequencyDetectedEventArgs(freq));
+                _owner.OnFrequencyDetected(new FrequencyDetectedEventArgs(freq));
             }
         }
     }

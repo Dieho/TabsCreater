@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 
 namespace FftGuitarTuner
 {
@@ -23,16 +20,16 @@ namespace FftGuitarTuner
 
     public class FrequencyDetectedEventArgs : EventArgs
     {
-        double frequency;
+        readonly double _frequency;
 
         public double Frequency
         {
-            get { return frequency; }
+            get { return _frequency; }
         }
 
         public FrequencyDetectedEventArgs(double frequency)
         {
-            this.frequency = frequency;
+            _frequency = frequency;
         }
     }
 }

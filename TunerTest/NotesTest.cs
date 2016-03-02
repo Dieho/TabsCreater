@@ -1,8 +1,7 @@
-﻿using FftGuitarTuner;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using FftGuitarTuner;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TunerTest
 {
@@ -15,7 +14,7 @@ namespace TunerTest
     [TestClass()]
     public class NotesTest
     {
-        private TestContext testContextInstance;
+        private TestContext _testContextInstance;
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -23,8 +22,8 @@ namespace TunerTest
         ///</summary>
         public TestContext TestContext
         {
-            get { return testContextInstance; }
-            set { testContextInstance = value; }
+            get { return _testContextInstance; }
+            set { _testContextInstance = value; }
         }
 
         #region Additional test attributes
@@ -73,19 +72,19 @@ namespace TunerTest
         [TestMethod()]
         public void GetClosestNoteTest2()
         {
-            int Min = 0;
-            int Max = 5000;
+            int min = 0;
+            int max = 5000;
             Random randNum = new Random();
             var test2 = Enumerable
                 .Repeat(0, 500000)
-                .Select(i => randNum.Next(Min, Max))
+                .Select(i => randNum.Next(min, max))
                 .ToList();
 
-            foreach (var VARIABLE in test2)
+            foreach (var variable in test2)
             {
-                var a = Notes.GetClosestNote2(VARIABLE);
-                var b = Notes.GetClosestNote(VARIABLE);
-                Assert.AreEqual(a,b, VARIABLE.ToString());
+                var a = Notes.GetClosestNote2(variable);
+                var b = Notes.GetClosestNote(variable);
+                Assert.AreEqual(a,b, variable.ToString());
             }
         }
     }
