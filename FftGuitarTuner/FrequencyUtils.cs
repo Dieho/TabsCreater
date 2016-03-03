@@ -32,6 +32,10 @@ namespace FftGuitarTuner
             int[] peakIndices;
             peakIndices = FindPeaks(spectr, usefullMinSpectr, usefullMaxSpectr - usefullMinSpectr,
                 peaksCount);
+            if (peakIndices == null)
+            {
+                return 0;  // return 0 freq if sound pressure is too low
+            }
 
             if (Array.IndexOf(peakIndices, usefullMinSpectr) >= 0)
             {
@@ -139,6 +143,7 @@ namespace FftGuitarTuner
                 }
             }
 
+            //chekicng sound pressione
             var a = peakValues;
             double sum = 0;
             for (var i = 0; i < a.Count(); i = i + 2)
@@ -147,7 +152,10 @@ namespace FftGuitarTuner
             }
             double rms = Math.Sqrt(sum / (a.Count() / 2));
             var decibel = 20 * Math.Log10(rms);
-
+            if (decibel < 0)
+            {
+                return null;
+            }
             return peakIndices;
         }
     }
