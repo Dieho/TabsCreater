@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
-using Microsoft.DirectX.DirectSound;
 using Microsoft.Win32.SafeHandles;
+using Microsoft.DirectX.DirectSound;
 
 namespace SoundCapture
 {

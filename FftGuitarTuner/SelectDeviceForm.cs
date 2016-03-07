@@ -24,7 +24,7 @@ namespace FftGuitarTuner
             LoadDevices();
         }
 
-        private DevicesCollection _myDevices = null;
+        //private DevicesCollection _myDevices = null;
 
         private void LoadDevices()
         {

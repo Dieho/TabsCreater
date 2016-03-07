@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Hellpers;
 using SoundAnalysis;
 
 namespace FftGuitarTuner
@@ -152,7 +153,7 @@ namespace FftGuitarTuner
             }
             double rms = Math.Sqrt(sum / (a.Count() / 2));
             var decibel = 20 * Math.Log10(rms);
-            if (decibel < 0)
+            if (decibel <= Config.GetConfigValue<double>("SoundPressureBarriere"))
             {
                 return null;
             }
