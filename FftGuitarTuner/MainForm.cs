@@ -96,7 +96,7 @@ namespace FftGuitarTuner
 
         private void FindClosestNote(double frequency, out double closestFrequency, out string noteName)
         {
-            var notes = new Notes();
+            var notes = Notes.Instance();
             noteName = notes.GetClosestNote(frequency);
             closestFrequency = notes.GetFrequency(noteName);
         }
