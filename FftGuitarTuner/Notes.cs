@@ -6,7 +6,7 @@ namespace FftGuitarTuner
 {
     public class Notes
     {
-        private IRepository _noteService = new RepositoryService();
+        private IRepository _noteRepo = new RepositoryService();
         private static readonly string[] NoteNames = { "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#" };
        
         public double GetFrequency(string note)
