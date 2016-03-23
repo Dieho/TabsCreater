@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using FftGuitarTuner.Data;
+using System.Collections.Generic;
 
 namespace FftGuitarTuner
 {
@@ -8,6 +9,7 @@ namespace FftGuitarTuner
     {
         private static Notes notes;
         private static IRepository _noteRepo = new RepositoryService();
+        private IList<FftGuitarTuner.Data.Entities.Notes> _notesList = _noteRepo.GetAll().ToList();
         private static readonly string[] NoteNames = { "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#" };
        
         protected Notes()
@@ -24,14 +26,13 @@ namespace FftGuitarTuner
 
         public double GetFrequency(string note)
         {
-            return _noteService.GetAll().FirstOrDefault(n => n.Note == note).Frequency;
+            return _notesList.FirstOrDefault(n => n.Note == note).Frequency;
         }
 
         public string GetClosestNote(double freq)
         {
-            var listOfNotes = _noteService.GetAll().Select(n => n.Frequency).ToList();
-            var closest = listOfNotes.OrderBy(frequency => Math.Abs(freq - frequency)).First();
-            return _noteService.GetAll().FirstOrDefault(n => n.Frequency == closest).Note;
+            var closest = _notesList.Select(n => n.Frequency).OrderBy(frequency => Math.Abs(freq - frequency)).First();
+            return _notesList.FirstOrDefault(n => n.Frequency == closest).Note;
         }
 
         public string GetClosestNote2(double freq)
