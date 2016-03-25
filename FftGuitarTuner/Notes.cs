@@ -8,7 +8,6 @@ namespace FftGuitarTuner
 {
     public class Notes
     {
-        private readonly IRepository _noteService = new RepositoryService();
         private static Notes notes;
         private static IRepository _noteRepo = new RepositoryService();
         private IList<FftGuitarTuner.Data.Entities.Notes> _notesList = _noteRepo.GetAll().ToList();
