@@ -9,7 +9,9 @@ namespace FftGuitarTuner
     /// Utils that helps to detect the fundumental frequency.
     /// </summary> 
     static class FrequencyUtils
-    {
+    { 
+        //private static Config Config = new ConfigBuilder().New().Build();
+
         /// <summary>
         /// Finds fundamental frequency: calculates spectrogram, finds peaks, analyzes
         /// and refines frequency by diff sample values.
@@ -153,7 +155,7 @@ namespace FftGuitarTuner
             }
             double rms = Math.Sqrt(sum / (a.Count() / 2));
             var decibel = 20 * Math.Log10(rms);
-            if (decibel <= Config.GetConfigValue<double>("SoundPressureBarriere"))
+            if (decibel < 0.0)//Config.SoundPressure)
             {
                 return null;
             }

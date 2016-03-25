@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using Hellpers;
 using SoundCapture;
 
 namespace FftGuitarTuner
@@ -41,7 +43,7 @@ namespace FftGuitarTuner
             _frequencyInfoSource.Listen();
         }
 
-        void frequencyInfoSource_FrequencyDetected(object sender, FrequencyDetectedEventArgs e)
+        async void frequencyInfoSource_FrequencyDetected(object sender, FrequencyDetectedEventArgs e)
         {
             if (InvokeRequired)
             {
@@ -63,11 +65,10 @@ namespace FftGuitarTuner
                 frequencyTextBox.Enabled = true;
                 frequencyTextBox.Text = frequency.ToString("f3");
 
-                double closestFrequency;
-                string noteName;
-                FindClosestNote(frequency, out closestFrequency, out noteName);
-                closeFrequencyTextBox.Enabled = true;
-                closeFrequencyTextBox.Text = closestFrequency.ToString("f3");
+                //double closestFrequency;
+
+                var noteName = Notes.Instance().GetClosestNote(frequency);
+                //closeFrequencyTextBox.Text = closestFrequency.ToString("f3");
                 noteNameTextBox.Enabled = true;
                 noteNameTextBox.Text = noteName;
                 //string path = @"C:\WriteLines1.txt";
@@ -92,13 +93,6 @@ namespace FftGuitarTuner
                 noteNameTextBox.Enabled = false;
             }
 
-        }
-
-        private void FindClosestNote(double frequency, out double closestFrequency, out string noteName)
-        {
-            var notes = Notes.Instance();
-            noteName = notes.GetClosestNote(frequency);
-            closestFrequency = notes.GetFrequency(noteName);
         }
 
         private void listenButton_Click(object sender, EventArgs e)

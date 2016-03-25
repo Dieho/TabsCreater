@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using FftGuitarTuner.Data;
 using System.Collections.Generic;
 
@@ -7,6 +8,7 @@ namespace FftGuitarTuner
 {
     public class Notes
     {
+        private readonly IRepository _noteService = new RepositoryService();
         private static Notes notes;
         private static IRepository _noteRepo = new RepositoryService();
         private IList<FftGuitarTuner.Data.Entities.Notes> _notesList = _noteRepo.GetAll().ToList();
@@ -18,10 +20,7 @@ namespace FftGuitarTuner
 
         public static Notes Instance()
         {
-            if(notes == null)
-                notes = new Notes();
-
-            return notes;
+            return notes ?? (notes = new Notes());
         }
 
         public double GetFrequency(string note)
