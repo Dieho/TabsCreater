@@ -1,13 +1,14 @@
-﻿using SoundCapture;
+﻿using SoundAnalysis;
+using SoundCapture;
 
 namespace FftGuitarTuner
 {
-    class SoundFrequencyInfoSource : FrequencyInfoSource
+    public class SoundFrequencyInfoSource : FrequencyInfoSource
     {
         readonly SoundCaptureDevice _device;
         Adapter _adapter;
 
-        internal SoundFrequencyInfoSource(SoundCaptureDevice device)
+        public SoundFrequencyInfoSource(SoundCaptureDevice device)
         {
             _device = device;
         }

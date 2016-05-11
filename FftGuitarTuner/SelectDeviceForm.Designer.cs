@@ -43,8 +43,7 @@ namespace FftGuitarTuner
             this.deviceNamesListBox.Location = new System.Drawing.Point(12, 25);
             this.deviceNamesListBox.Name = "deviceNamesListBox";
             this.deviceNamesListBox.Size = new System.Drawing.Size(267, 134);
-            this.deviceNamesListBox.TabIndex = 1;
-            this.deviceNamesListBox.DoubleClick += new System.EventHandler(this.deviceNamesListBox_DoubleClick);
+            this.deviceNamesListBox.TabIndex = 1; this.deviceNamesListBox.DoubleClick += new System.EventHandler(this.deviceNamesListBox_DoubleClick);
             // 
             // label1
             // 

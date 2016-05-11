@@ -5,8 +5,8 @@ using System.Windows.Forms;
 
 namespace FftGuitarTuner
 {
-    public partial class FrequenciesScale : UserControl
-    {
+    public partial class FrequenciesScale : Control
+    { 
         const double MinFrequency = 70;
         const double MaxFrequency = 1200;
         const double AFrequency = 440;

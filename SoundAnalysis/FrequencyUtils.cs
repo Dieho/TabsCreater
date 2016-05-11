@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Linq;
-using Hellpers;
-using SoundAnalysis;
 
-namespace FftGuitarTuner
+namespace SoundAnalysis
 {
     /// <summary>
     /// Utils that helps to detect the fundumental frequency.
     /// </summary> 
-    static class FrequencyUtils
+    public static class FrequencyUtils
     { 
         //private static Config Config = new ConfigBuilder().New().Build();
 
@@ -21,7 +19,7 @@ namespace FftGuitarTuner
         /// <param name="minFreq">The min useful frequency</param>
         /// <param name="maxFreq">The max useful frequency</param>
         /// <returns>Found frequency, 0 - otherwise</returns>
-        internal static double FindFundamentalFrequency(double[] x, int sampleRate, double minFreq, double maxFreq)
+        public static double FindFundamentalFrequency(double[] x, int sampleRate, double minFreq, double maxFreq)
         {
             double[] spectr = FftAlgorithm.Calculate(x);
 
@@ -146,7 +144,7 @@ namespace FftGuitarTuner
                 }
             }
 
-            //chekicng sound pressione
+            //chekicng sound pressure
             var a = peakValues;
             double sum = 0;
             for (var i = 0; i < a.Count(); i = i + 2)

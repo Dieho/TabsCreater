@@ -106,20 +106,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FrequenciesScale.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
+      <Generator>FreqScale</Generator>
     </Compile>
     <Compile Include="FrequenciesScale.Designer.cs">
       <DependentUpon>FrequenciesScale.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrequencyInfoSource.cs" />
-    <Compile Include="FrequencyUtils.cs" />
+    <Compile Include="Listener.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Notes.cs" />
+    <Compile Include="NotesOperations.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrequenciesScale.resx">

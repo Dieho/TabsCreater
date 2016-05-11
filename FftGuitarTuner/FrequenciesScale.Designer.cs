@@ -35,8 +35,6 @@ namespace FftGuitarTuner
             // FrequenciesScale
             // 
             this.BackColor = System.Drawing.Color.White;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Name = "FrequenciesScale";
             this.Size = new System.Drawing.Size(148, 148);
             this.ResumeLayout(false);
 

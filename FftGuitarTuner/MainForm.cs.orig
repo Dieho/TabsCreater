@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Hellpers;
-using SoundAnalysis;
 using SoundCapture;
 
 namespace FftGuitarTuner
@@ -10,6 +9,7 @@ namespace FftGuitarTuner
     public partial class MainForm : Form
     {
         bool _isListenning;
+        Notes _notes = new Notes();
 
         public bool IsListenning
         {
@@ -44,7 +44,7 @@ namespace FftGuitarTuner
             _frequencyInfoSource.Listen();
         }
 
-        public async void frequencyInfoSource_FrequencyDetected(object sender, FrequencyDetectedEventArgs e)
+        async void frequencyInfoSource_FrequencyDetected(object sender, FrequencyDetectedEventArgs e)
         {
             if (InvokeRequired)
             {
@@ -67,8 +67,8 @@ namespace FftGuitarTuner
                 frequencyTextBox.Text = frequency.ToString("f3");
 
                 //double closestFrequency;
-
-                var noteName = NotesOperations.Instance().GetClosestNote(frequency).Note;
+                
+                string noteName =  _notes.GetClosestNote(frequency);
                 //closeFrequencyTextBox.Text = closestFrequency.ToString("f3");
                 noteNameTextBox.Enabled = true;
                 noteNameTextBox.Text = noteName;
@@ -96,6 +96,16 @@ namespace FftGuitarTuner
 
         }
 
+<<<<<<< Updated upstream
+        private void FindClosestNote(double frequency, out double closestFrequency, out string noteName)
+        {
+            var notes = Notes.Instance();
+            noteName = notes.GetClosestNote(frequency);
+            closestFrequency = notes.GetFrequency(noteName);
+        }
+
+=======
+>>>>>>> Stashed changes
         private void listenButton_Click(object sender, EventArgs e)
         {
             SoundCaptureDevice device = null;

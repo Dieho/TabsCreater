@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FftGuitarTuner
+namespace SoundAnalysis
 {
     public abstract class FrequencyInfoSource
     {

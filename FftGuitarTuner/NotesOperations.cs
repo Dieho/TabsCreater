@@ -3,23 +3,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using FftGuitarTuner.Data;
 using System.Collections.Generic;
+using FftGuitarTuner.Data.Entities;
 
 namespace FftGuitarTuner
 {
-    public class Notes
+    public class NotesOperations
     {
-        private static Notes notes;
+        private static NotesOperations _notesOperations;
         private static IRepository _noteRepo = new RepositoryService();
         private IList<FftGuitarTuner.Data.Entities.Notes> _notesList = _noteRepo.GetAll().ToList();
         private static readonly string[] NoteNames = { "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#" };
        
-        protected Notes()
+        protected NotesOperations()
         {
         }
 
-        public static Notes Instance()
+        public static NotesOperations Instance()
         {
-            return notes ?? (notes = new Notes());
+            return _notesOperations ?? (_notesOperations = new NotesOperations());
         }
 
         public double GetFrequency(string note)
@@ -27,10 +28,20 @@ namespace FftGuitarTuner
             return _notesList.FirstOrDefault(n => n.Note == note).Frequency;
         }
 
-        public string GetClosestNote(double freq)
+        public Notes GetClosestNote(double freq)
         {
             var closest = _notesList.Select(n => n.Frequency).OrderBy(frequency => Math.Abs(freq - frequency)).First();
-            return _notesList.FirstOrDefault(n => n.Frequency == closest).Note;
+            return _notesList.FirstOrDefault(n => n.Frequency == closest);
+        }
+
+        public Notes GetNoteById(int id)
+        {
+            return _notesList.FirstOrDefault(n => n.Id == id);
+        }
+
+        public Notes GetNoteByName(string name)
+        {
+            return _notesList.FirstOrDefault(n => n.Note == name);
         }
 
         public string GetClosestNote2(double freq)
@@ -75,4 +86,5 @@ namespace FftGuitarTuner
             return noteName + "8";
         }
     }
+
 }
