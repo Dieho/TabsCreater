@@ -9,6 +9,8 @@
     <Grid>
         <Button x:Name="SelectDeviceButton" Content="Select device" HorizontalAlignment="Left" Margin="432,37,0,0" VerticalAlignment="Top" Width="75" Click="SelectDeviceButton_Click" Background="#FFE6E6E6"/>
         <Button x:Name="TunerButton" Content="Tuner" HorizontalAlignment="Left" Margin="432,72,0,0" VerticalAlignment="Top" Width="75" Click="TunerButton_Click"/>
-        <Button x:Name="StopButton" Content="Stop" HorizontalAlignment="Left" Margin="432,106,0,0" VerticalAlignment="Top" Width="75" Click="StopButton_Click"/>
+        <Button x:Name="StopButton" Content="Stop listening" HorizontalAlignment="Left" Margin="432,106,0,0" VerticalAlignment="Top" Width="75" Click="StopButton_Click"/>
+        <Button x:Name="StartButton" Content="Start listening" HorizontalAlignment="Left" Margin="432,141,0,0" VerticalAlignment="Top" Width="75" Click="StartButton_Click"/>
+        <TextBlock x:Name="NoteName" HorizontalAlignment="Center" Margin="175,80,175,120" VerticalAlignment="Center" Height="100" Width="100" FontSize="48" TextAlignment="Center" FontWeight="ExtraLight" TextOptions.TextFormattingMode="Display"/>
     </Grid>
 </Window>

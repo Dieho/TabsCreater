@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Hellpers;
 using SoundAnalysis;
 using SoundCapture;
 
@@ -6,12 +9,10 @@ namespace FftGuitarTuner
 {
     public class Listener
     {
-        public SoundCaptureDevice device;
-        private static bool _isListenning;
-        private static Listener instance;
+        public SoundCaptureDevice Device;
+        private static Listener _instance;
         private static object syncRoot = new Object();
-        private  FrequencyInfoSource _frequencyInfoSource;
-        public FrequencyInfoSource FrequencyInfoSource => _frequencyInfoSource;
+        private Dictionary<string, SoundFrequencyInfoSource> frequencyInfoSourceList = new Dictionary<string, SoundFrequencyInfoSource>();
 
         protected Listener()
         {
@@ -22,32 +23,54 @@ namespace FftGuitarTuner
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
                     lock (syncRoot)
                     {
-                        if (instance == null)
-                            instance = new Listener();
+                        if (_instance == null)
+                            _instance = new Listener();
                     }
                 }
-                return instance;
+                return _instance;
             }
         }
 
-        public void StopListenning(EventHandler<FrequencyDetectedEventArgs> freqSource)
+        public void StopListenning(EventHandler<FrequencyDetectedEventArgs> freqSource, Type callerClass)
         {
-            _isListenning = false;
-            _frequencyInfoSource.Stop();
-            _frequencyInfoSource.FrequencyDetected -= freqSource;
-            _frequencyInfoSource = null;
+            var exist = frequencyInfoSourceList.ContainsKey(callerClass.FullName);
+            if (exist)
+            {
+                var source = frequencyInfoSourceList[callerClass.FullName];
+                if (source.IsListening)
+                {
+                    source.Stop();
+                    source.IsListening = false;
+                    source.FrequencyDetected -= freqSource;
+                }
+            }
         }
 
-        public void StartListenning(EventHandler<FrequencyDetectedEventArgs> freqSource)
+        public void StartListenning(EventHandler<FrequencyDetectedEventArgs> freqSource, Type callerClass)
         {
-            _isListenning = true;
-            _frequencyInfoSource = new SoundFrequencyInfoSource(device);
-            _frequencyInfoSource.FrequencyDetected += freqSource;
-            _frequencyInfoSource.Listen();
+            var exist = frequencyInfoSourceList.ContainsKey(callerClass.FullName);
+            if (!exist)
+            {
+                var frequencyInfoSource = new SoundFrequencyInfoSource(Device);
+                frequencyInfoSource.FrequencyDetected += freqSource;
+                frequencyInfoSource.Listen();
+                frequencyInfoSource.IsListening = true;
+                frequencyInfoSourceList.Add(callerClass.FullName, frequencyInfoSource);
+            }
+            else
+            {
+                var source = frequencyInfoSourceList[callerClass.FullName];
+                if (!source.IsListening)
+                {
+                    source.FrequencyDetected += freqSource;
+                    source.Listen();
+                    source.IsListening = true;
+                }
+            }
         }
     }
 }

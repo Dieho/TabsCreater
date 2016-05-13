@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using FftGuitarTuner;
+using Hellpers;
 using SoundAnalysis;
-using TabsCreator.Controls;
 
 namespace TabsCreator.Windows
 {
@@ -101,11 +100,11 @@ namespace TabsCreator.Windows
         {
             if (IsVisible)
             {
-                Listener.Instance.StartListenning(frequencyInfoSource_FrequencyDetected);
+                Listener.Instance.StartListenning(frequencyInfoSource_FrequencyDetected, GetType());
             }
             else
             {
-                Listener.Instance.StopListenning(frequencyInfoSource_FrequencyDetected);
+                Listener.Instance.StopListenning(frequencyInfoSource_FrequencyDetected, GetType());
             }
         }
     }

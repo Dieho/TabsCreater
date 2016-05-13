@@ -1,10 +1,12 @@
-﻿using SoundAnalysis;
+﻿using Hellpers;
+using SoundAnalysis;
 using SoundCapture;
 
 namespace FftGuitarTuner
 {
     public class SoundFrequencyInfoSource : FrequencyInfoSource
     {
+        public bool IsListening { get; set; }
         readonly SoundCaptureDevice _device;
         Adapter _adapter;
 
