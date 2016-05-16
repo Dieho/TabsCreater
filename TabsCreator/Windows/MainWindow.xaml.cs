@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -29,6 +30,7 @@ namespace TabsCreator.Windows
             Listener.Instance.Device = SoundCaptureDevice.GetDevices().FirstOrDefault();
             _ListeningChangedEventHandler.ListneningStatusChangedEventHandler += ListneningStatusChaged;
             UpdateListenButtons();
+            AppDomain.CurrentDomain.SetData("DataDirectory", Environment.CurrentDirectory);
         }
 
         private void SelectDeviceButton_Click(object sender, RoutedEventArgs e)
@@ -133,6 +135,11 @@ namespace TabsCreator.Windows
             Listener.Instance.StartListenning(frequencyInfoSource_FrequencyDetected, GetType());
             _ListeningChangedEventHandler.OnListneningStatusChanged(new ListeningChangedEventArgs(true));
             //UpdateListenButtons();
+        }
+
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

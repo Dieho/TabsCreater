@@ -151,10 +151,6 @@
       <Project>{016e63b2-2b7e-401c-b0af-c580f4e44fa2}</Project>
       <Name>FftGuitarTuner.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FftGuitarTuner\FftGuitarTuner.csproj">
-      <Project>{088af27f-6f9d-4481-9b85-8e67c49d75eb}</Project>
-      <Name>FftGuitarTuner</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Hellpers\Hellpers.csproj">
       <Project>{08817c09-2065-4460-8cb6-fa7d03ef893e}</Project>
       <Name>Hellpers</Name>

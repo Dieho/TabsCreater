@@ -48,9 +48,15 @@
     <Compile Include="ConfigBuilder.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="Events.cs" />
+    <Compile Include="NotesOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\FftGuitarTuner.Data\FftGuitarTuner.Data.csproj">
+      <Project>{016E63B2-2B7E-401C-B0AF-C580F4E44FA2}</Project>
+      <Name>FftGuitarTuner.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

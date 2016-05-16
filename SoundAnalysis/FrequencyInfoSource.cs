@@ -11,7 +11,7 @@ namespace SoundAnalysis
 
         public event EventHandler<FrequencyDetectedEventArgs> FrequencyDetected;
 
-        protected void OnFrequencyDetected(FrequencyDetectedEventArgs e)
+        public void OnFrequencyDetected(FrequencyDetectedEventArgs e)
         {
             if (FrequencyDetected != null)
             {

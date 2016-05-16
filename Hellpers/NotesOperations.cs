@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
-using FftGuitarTuner.Data;
 using System.Collections.Generic;
+using FftGuitarTuner.Data;
 using FftGuitarTuner.Data.Entities;
 
 namespace FftGuitarTuner
@@ -10,8 +9,8 @@ namespace FftGuitarTuner
     public class NotesOperations
     {
         private static NotesOperations _notesOperations;
-        private static IRepository _noteRepo = new RepositoryService();
-        private IList<FftGuitarTuner.Data.Entities.Notes> _notesList = _noteRepo.GetAll().ToList();
+        private static readonly IRepository NoteRepo = new RepositoryService();
+        private static readonly IList<Notes> NotesList = NoteRepo.GetAll().ToList();
         private static readonly string[] NoteNames = { "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#" };
        
         protected NotesOperations()
@@ -25,23 +24,23 @@ namespace FftGuitarTuner
 
         public double GetFrequency(string note)
         {
-            return _notesList.FirstOrDefault(n => n.Note == note).Frequency;
+            return NotesList.FirstOrDefault(n => n.Note == note).Frequency;
         }
 
         public Notes GetClosestNote(double freq)
         {
-            var closest = _notesList.Select(n => n.Frequency).OrderBy(frequency => Math.Abs(freq - frequency)).First();
-            return _notesList.FirstOrDefault(n => n.Frequency == closest);
+            var closest = NotesList.Select(n => n.Frequency).OrderBy(frequency => Math.Abs(freq - frequency)).First();
+            return NotesList.FirstOrDefault(n => n.Frequency == closest);
         }
 
         public Notes GetNoteById(int id)
         {
-            return _notesList.FirstOrDefault(n => n.Id == id);
+            return NotesList.FirstOrDefault(n => n.Id == id);
         }
 
         public Notes GetNoteByName(string name)
         {
-            return _notesList.FirstOrDefault(n => n.Note == name);
+            return NotesList.FirstOrDefault(n => n.Note == name);
         }
 
         public string GetClosestNote2(double freq)
