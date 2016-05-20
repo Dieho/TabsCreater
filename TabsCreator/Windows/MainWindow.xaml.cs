@@ -15,20 +15,20 @@ namespace TabsCreator.Windows
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        private TunerWindow _tuner = new TunerWindow();
+        private readonly TunerWindow _tuner = new TunerWindow();
         
         private bool _isListenning;
 
-        private ListeningChangedEventHandler _ListeningChangedEventHandler = new ListeningChangedEventHandler();
+        private readonly ListeningChangedEventHandler _listeningChangedEventHandler = new ListeningChangedEventHandler();
         public bool IsListenning => _isListenning;
 
         public MainWindow()
         {
             InitializeComponent();
             Listener.Instance.Device = SoundCaptureDevice.GetDevices().FirstOrDefault();
-            _ListeningChangedEventHandler.ListneningStatusChangedEventHandler += ListneningStatusChaged;
+            _listeningChangedEventHandler.ListneningStatusChangedEventHandler += ListneningStatusChaged;
             UpdateListenButtons();
             AppDomain.CurrentDomain.SetData("DataDirectory", Environment.CurrentDirectory);
         }
@@ -45,8 +45,7 @@ namespace TabsCreator.Windows
             if (Listener.Instance.Device != null)
             {
                 Listener.Instance.StartListenning(frequencyInfoSource_FrequencyDetected, GetType());
-                _ListeningChangedEventHandler.OnListneningStatusChanged(new ListeningChangedEventArgs(false));
-                //UpdateListenButtons();
+                _listeningChangedEventHandler.OnListneningStatusChanged(new ListeningChangedEventArgs(false));
             }
         }
 
@@ -76,8 +75,7 @@ namespace TabsCreator.Windows
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
             Listener.Instance.StopListenning(frequencyInfoSource_FrequencyDetected, GetType());
-            _ListeningChangedEventHandler.OnListneningStatusChanged(new ListeningChangedEventArgs(false));
-            //UpdateListenButtons();
+            _listeningChangedEventHandler.OnListneningStatusChanged(new ListeningChangedEventArgs(false));
         }
 
         private void frequencyInfoSource_FrequencyDetected(object sender, FrequencyDetectedEventArgs e)
@@ -133,7 +131,7 @@ namespace TabsCreator.Windows
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
             Listener.Instance.StartListenning(frequencyInfoSource_FrequencyDetected, GetType());
-            _ListeningChangedEventHandler.OnListneningStatusChanged(new ListeningChangedEventArgs(true));
+            _listeningChangedEventHandler.OnListneningStatusChanged(new ListeningChangedEventArgs(true));
             //UpdateListenButtons();
         }
 

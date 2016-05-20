@@ -13,7 +13,7 @@ namespace SoundCapture
     /// <summary>
     /// Base class to capture audio samples.
     /// </summary>
-    public static class SoundCapturing// : IDisposable
+    internal static class SoundCapturing// : IDisposable
     {
         public static List<SoundFrequencyInfoSource> Owners = new List<SoundFrequencyInfoSource>();
         public static SoundCaptureDevice Device;
@@ -30,7 +30,6 @@ namespace SoundCapture
 
         static int _sampleRate = 44100;
         static bool _isCapturing;
-        static bool _disposed;
 
         public static bool IsCapturing
         {
@@ -57,11 +56,10 @@ namespace SoundCapture
         static readonly AutoResetEvent PositionEvent;
         static readonly SafeWaitHandle PositionEventHandle;
         static readonly ManualResetEvent Terminated;
-        static Thread _thread;
         //private static Task Task;
 
-        static CancellationTokenSource tokenSource2 = new CancellationTokenSource();
-        private static CancellationToken ct;
+        static CancellationTokenSource _tokenSource2 = new CancellationTokenSource();
+        private static CancellationToken _ct;
 
         static SoundCapturing()
         {
@@ -86,9 +84,9 @@ namespace SoundCapture
             // EnsureIdle();
             Owners.Add(source);
             _isCapturing = true;
-            if (tokenSource2.IsCancellationRequested)
+            if (_tokenSource2.IsCancellationRequested)
             {
-                tokenSource2=new CancellationTokenSource();
+                _tokenSource2=new CancellationTokenSource();
             }
 
             WaveFormat format = new WaveFormat
@@ -128,7 +126,7 @@ namespace SoundCapture
 
             Terminated.Reset();
 
-            Task.Factory.StartNew(() => ThreadLoop(ct), ct);// {Name = "Sound capture"};
+            Task.Factory.StartNew(() => ThreadLoop(_ct), _ct);// {Name = "Sound capture"};
             //Task.Start();
         }
 
@@ -180,7 +178,7 @@ namespace SoundCapture
                 x[i] = data[i] / 32768.0;
             }
             double freq = FrequencyUtils.FindFundamentalFrequency(x, SampleRate, MinFreq, MaxFreq);
-            Owners.ForEach(a => a.OnFrequencyDetected(new FrequencyDetectedEventArgs(freq)));
+            Owners.ForEach(a => a.FrequencyDetectedEventHandler.OnFrequencyDetected(new FrequencyDetectedEventArgs(freq)));
         }
 
         /// <summary>
@@ -195,7 +193,7 @@ namespace SoundCapture
                 {
                     _isCapturing = false;
 
-                    tokenSource2.Cancel();
+                    _tokenSource2.Cancel();
 
                     Terminated.Set();
 

@@ -6,10 +6,12 @@ using SoundCapture;
 
 namespace FftGuitarTuner
 {
-    public class SoundFrequencyInfoSource : FrequencyInfoSource
+    internal class SoundFrequencyInfoSource : FrequencyInfoSource
     {
         public bool IsListening { get; set; }
         readonly SoundCaptureDevice _device;
+
+        public FrequencyDetectedEventHandler FrequencyDetectedEventHandler = new FrequencyDetectedEventHandler();
 
 
         public SoundFrequencyInfoSource(SoundCaptureDevice device)

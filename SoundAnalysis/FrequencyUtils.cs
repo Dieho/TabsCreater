@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Hellpers;
 
 namespace SoundAnalysis
 {
@@ -8,7 +9,7 @@ namespace SoundAnalysis
     /// </summary> 
     public static class FrequencyUtils
     { 
-        //private static Config Config = new ConfigBuilder().New().Build();
+        private static readonly Config Config = new ConfigBuilder().New().Build();
 
         /// <summary>
         /// Finds fundamental frequency: calculates spectrogram, finds peaks, analyzes
@@ -153,7 +154,7 @@ namespace SoundAnalysis
             }
             double rms = Math.Sqrt(sum / (a.Count() / 2));
             var decibel = 20 * Math.Log10(rms);
-            if (decibel < 0.0)//Config.SoundPressure)
+            if (decibel < Config.SoundPressure)
             {
                 return null;
             }

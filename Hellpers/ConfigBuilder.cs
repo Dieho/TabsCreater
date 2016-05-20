@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
@@ -11,7 +7,7 @@ namespace Hellpers
 {
     public class ConfigBuilder
     {
-        private Config _config = new Config();
+        private readonly Config _config = new Config();
         private XDocument _settings;
 
         public ConfigBuilder New()
@@ -41,12 +37,12 @@ namespace Hellpers
             {
                 throw new Exception("Configs directory was not found");
             }
-            var name = "\\standart.xml";
+            var name = "\\config.xml";
             try
             {
                 return XDocument.Load(configsDirectory + name);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }

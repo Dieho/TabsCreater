@@ -18,4 +18,17 @@ namespace Hellpers
             }
         }
     }
+
+    public class FrequencyDetectedEventHandler
+    {
+        public event EventHandler<FrequencyDetectedEventArgs> FrequencyDetected;
+
+        public void OnFrequencyDetected(FrequencyDetectedEventArgs e)
+        {
+            if (FrequencyDetected != null)
+            {
+                FrequencyDetected(this, e);
+            }
+        }
+    }
 }

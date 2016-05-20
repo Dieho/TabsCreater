@@ -45,7 +45,7 @@ namespace FftGuitarTuner
                 {
                     source.Stop();
                     source.IsListening = false;
-                    source.FrequencyDetected -= freqSource;
+                    source.FrequencyDetectedEventHandler.FrequencyDetected -= freqSource;
                 }
             }
         }
@@ -56,7 +56,7 @@ namespace FftGuitarTuner
             if (!exist)
             {
                 var frequencyInfoSource = new SoundFrequencyInfoSource(Device);
-                frequencyInfoSource.FrequencyDetected += freqSource;
+                frequencyInfoSource.FrequencyDetectedEventHandler.FrequencyDetected += freqSource;
                 frequencyInfoSource.Listen();
                 frequencyInfoSource.IsListening = true;
                 frequencyInfoSourceList.Add(callerClass.FullName, frequencyInfoSource);
@@ -66,7 +66,7 @@ namespace FftGuitarTuner
                 var source = frequencyInfoSourceList[callerClass.FullName];
                 if (!source.IsListening)
                 {
-                    source.FrequencyDetected += freqSource;
+                    source.FrequencyDetectedEventHandler.FrequencyDetected += freqSource;
                     source.Listen();
                     source.IsListening = true;
                 }
