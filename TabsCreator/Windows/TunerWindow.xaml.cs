@@ -5,6 +5,7 @@ using System.Windows.Media;
 using FftGuitarTuner;
 using Hellpers;
 using SoundAnalysis;
+using SoundCapture;
 
 namespace TabsCreator.Windows
 {
@@ -39,8 +40,8 @@ namespace TabsCreator.Windows
         private void UpdateFrequecyDisplays(double frequency)
         {
             var closestNote = NotesOperations.Instance().GetClosestNote(frequency);
-            BrushConverter bc = new BrushConverter();
-            Brush brush2 = (Brush)bc.ConvertFrom("White");
+            var bc = new BrushConverter();
+            var brush2 = (Brush)bc.ConvertFrom("White");
             Dispatcher.Invoke(() =>
             {
                 Dispatcher.Invoke(() => { FrequencyScale.Lowest.Fill = brush2; });
@@ -66,7 +67,7 @@ namespace TabsCreator.Windows
             }
 
             
-            Brush brush = (Brush)bc.ConvertFrom("Green");
+            var brush = (Brush)bc.ConvertFrom("Green");
             
             var noteDiff = closestNote.Frequency - frequency;
             if (noteDiff < loverDiff/3 && noteDiff > higherDiff/3)

@@ -136,7 +136,7 @@ namespace SoundCapture
             try
             {
                 int nextCapturePosition = 0;
-                WaitHandle[] handles = { Terminated, PositionEvent };
+                WaitHandle[] handles = {Terminated, PositionEvent};
                 while (WaitHandle.WaitAny(handles) > 0)
                 {
                     int capturePosition, readPosition;
@@ -149,14 +149,17 @@ namespace SoundCapture
                     int itemsCount = lockSize >> 1;
 
                     short[] data =
-                        (short[])_buffer.Read(nextCapturePosition, typeof(short), LockFlag.None, itemsCount);
+                        (short[]) _buffer.Read(nextCapturePosition, typeof(short), LockFlag.None, itemsCount);
                     ProcessData(data);
                     nextCapturePosition = (nextCapturePosition + lockSize) % _bufferLength;
                     if (token.IsCancellationRequested)
                     {
-                        return;// token.ThrowIfCancellationRequested();
+                        return; // token.ThrowIfCancellationRequested();
                     }
                 }
+            }
+            catch (ArgumentException)
+            {
             }
             finally
             {

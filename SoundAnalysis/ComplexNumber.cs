@@ -5,7 +5,7 @@ namespace SoundAnalysis
     /// <summary>
     /// Complex number.
     /// </summary>
-    struct ComplexNumber
+    internal struct ComplexNumber
     {
         public double Re;
         public double Im;
@@ -50,7 +50,7 @@ namespace SoundAnalysis
 
         public ComplexNumber PoweredE()
         {
-            double e = Math.Exp(Re);
+            var e = Math.Exp(Re);
             return new ComplexNumber(e * Math.Cos(Im), e * Math.Sin(Im));
         }
 
@@ -66,7 +66,7 @@ namespace SoundAnalysis
 
         public override string ToString()
         {
-            return String.Format("{0}+i*{1}", Re, Im);
+            return $"{Re}+i*{Im}";
         }
     }
 }

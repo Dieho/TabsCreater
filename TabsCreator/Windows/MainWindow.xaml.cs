@@ -18,11 +18,9 @@ namespace TabsCreator.Windows
     public partial class MainWindow
     {
         private readonly TunerWindow _tuner = new TunerWindow();
-        
-        private bool _isListenning;
 
         private readonly ListeningChangedEventHandler _listeningChangedEventHandler = new ListeningChangedEventHandler();
-        public bool IsListenning => _isListenning;
+        public bool IsListenning { get; private set; }
 
         public MainWindow()
         {
@@ -45,25 +43,25 @@ namespace TabsCreator.Windows
             if (Listener.Instance.Device != null)
             {
                 Listener.Instance.StartListenning(frequencyInfoSource_FrequencyDetected, GetType());
-                _listeningChangedEventHandler.OnListneningStatusChanged(new ListeningChangedEventArgs(false));
+                _listeningChangedEventHandler.OnListneningStatusChanged(new ListeningChangedEventArgs(true));
             }
         }
 
         private void UpdateListenButtons()
         {
-            SelectDeviceButton.IsEnabled = !_isListenning;
-            StopButton.IsEnabled = _isListenning;
-            StartButton.IsEnabled = !_isListenning;
+            SelectDeviceButton.IsEnabled = !IsListenning;
+            StopButton.IsEnabled = IsListenning;
+            StartButton.IsEnabled = !IsListenning;
         }
 
         private void TunerButton_Click(object sender, RoutedEventArgs e)
         {
             if (!_tuner.IsVisible)
             {
-                if (Listener.Instance.Device == null)
-                {
-                    Listener.Instance.Device = SoundCaptureDevice.GetDevices().FirstOrDefault();
-                }
+                //if (Listener.Instance.Device == null)
+                //{
+                //    Listener.Instance.Device = SoundCaptureDevice.GetDevices().FirstOrDefault();
+                //}
                 _tuner.Show();
             }
             else
@@ -98,7 +96,7 @@ namespace TabsCreator.Windows
             //}
             //else
             //{
-                _isListenning = e.IsListnening;
+                IsListenning = e.IsListnening;
                 UpdateListenButtons();
             //}
         }

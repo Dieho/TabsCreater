@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using FftGuitarTuner;
 using Hellpers;
-using SoundAnalysis;
-using SoundCapture;
 
-namespace FftGuitarTuner
+namespace SoundCapture
 {
     public class Listener
     {
         public SoundCaptureDevice Device;
         private static Listener _instance;
-        private static object syncRoot = new Object();
-        private Dictionary<string, SoundFrequencyInfoSource> frequencyInfoSourceList = new Dictionary<string, SoundFrequencyInfoSource>();
+        private static readonly object SyncRoot = new object();
+        private readonly Dictionary<string, SoundFrequencyInfoSource> _frequencyInfoSourceList = new Dictionary<string, SoundFrequencyInfoSource>();
 
         protected Listener()
         {
@@ -25,7 +23,7 @@ namespace FftGuitarTuner
             {
                 if (_instance == null)
                 {
-                    lock (syncRoot)
+                    lock (SyncRoot)
                     {
                         if (_instance == null)
                             _instance = new Listener();
@@ -37,10 +35,10 @@ namespace FftGuitarTuner
 
         public void StopListenning(EventHandler<FrequencyDetectedEventArgs> freqSource, Type callerClass)
         {
-            var exist = frequencyInfoSourceList.ContainsKey(callerClass.FullName);
+            var exist = _frequencyInfoSourceList.ContainsKey(callerClass.FullName ?? throw new InvalidOperationException());
             if (exist)
             {
-                var source = frequencyInfoSourceList[callerClass.FullName];
+                var source = _frequencyInfoSourceList[callerClass.FullName];
                 if (source.IsListening)
                 {
                     source.Stop();
@@ -52,18 +50,18 @@ namespace FftGuitarTuner
 
         public void StartListenning(EventHandler<FrequencyDetectedEventArgs> freqSource, Type callerClass)
         {
-            var exist = frequencyInfoSourceList.ContainsKey(callerClass.FullName);
+            var exist = _frequencyInfoSourceList.ContainsKey(callerClass.FullName ?? throw new InvalidOperationException());
             if (!exist)
             {
                 var frequencyInfoSource = new SoundFrequencyInfoSource(Device);
                 frequencyInfoSource.FrequencyDetectedEventHandler.FrequencyDetected += freqSource;
                 frequencyInfoSource.Listen();
                 frequencyInfoSource.IsListening = true;
-                frequencyInfoSourceList.Add(callerClass.FullName, frequencyInfoSource);
+                _frequencyInfoSourceList.Add(callerClass.FullName, frequencyInfoSource);
             }
             else
             {
-                var source = frequencyInfoSourceList[callerClass.FullName];
+                var source = _frequencyInfoSourceList[callerClass.FullName];
                 if (!source.IsListening)
                 {
                     source.FrequencyDetectedEventHandler.FrequencyDetected += freqSource;
